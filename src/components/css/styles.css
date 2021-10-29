@@ -3,47 +3,27 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: blueviolet;
 }
-.btn {
-    border : none;
-    width: 100px;
-    height: 100px;
+button {
+    
+    height: 40px;
+    width:70px;
     cursor:pointer;
     transition: all .5ms ease-in-out;
-    border: 2px solid rgb(255, 255, 255);
-    margin: 10px;
+    margin: 20px;
     border-radius: 2px;
+    color: white;
+    border: 5px solid white;
+    text-align: center ;
+ 
 }
 
-.black{
-    background-color: black;
-
+h1{
+    color: white;
+    text-align: center;
 }
-.yellow{
-    background-color: yellow;
-}
-.blue{
-    background-color: blue;
-}
-body{
-    height: 100%;
-}
-.container{
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    
-}
-#root {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100vh;
-    /* justify-content: center; */
-    /* align-items: center; */
-     
-}
-h1 {
-    color: rgb(241, 237, 237);
+ul {  display: flex; 
+margin-right: 50px;
+justify-content: space-between;
 }
