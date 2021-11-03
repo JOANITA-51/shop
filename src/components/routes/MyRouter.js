@@ -1,5 +1,6 @@
 import React from 'react'
-import PrivateRoute from '../routes/PrivateRoute'
+import PrivateRoute from './PrivateRoute'
+import PublicRoute from './PublicRoute'
 import Login from '../views/Login'
 import Account from '../views/Account'
 import Checkout from '../views/Checkout'
@@ -7,24 +8,22 @@ import Dashboard from '../views/Dashboard'
 import Home from '../views/Home'
 import Cart from '../views/Cart'
 import Pay from '../views/Pay'
+import NotAuthorized from '../views/NotAuthorized'
+import NotFound from '../views/NotFound.js'
 import {
     BrowserRouter as Router,
-    Switch, Route, Link
+    Switch, Route
 } from 'react-router-dom'
 
 function MyRouter() {
-    const [page, setPage] = React.useState(null)
-
     return (
         <Router>
-            {/* <button onClick={() => setPage(page === 'posts' ? 'todos' : 'posts')} >
-                {page === 'posts' ? 'Todos' : 'Posts'}
-            </button> */}
-            {/* <Link to="/posts">Posts</Link>
-            <Link to="/todos">Todos</Link> */}
             <Switch>
                 <Route path="/" exact>
                     <Home />
+                </Route>
+                <Route path="/not-authorized">
+                    <NotAuthorized />
                 </Route>
                 <Route path="/login">
                     <Login />
@@ -35,23 +34,23 @@ function MyRouter() {
                 <Route path="/cart">
                     <Cart />
                 </Route>
-                <Route path="/Dashboard">
+                <PrivateRoute path="/dashboard">
                     <Dashboard />
-                </Route>
-                <Route path="/Account">
+                </PrivateRoute>
+                <PrivateRoute path="/account">
                     <Account />
-                </Route>
+                </PrivateRoute>
                 <Route path="/checkout">
                     <Checkout />
                 </Route>
-                <Route path="/Pay">
+                <PrivateRoute path="/Pay">
                     <Pay />
+                </PrivateRoute>
+                <Route path = "*">
+                    <NotFound/>
                 </Route>
             </Switch>
-{/*             {page === 'posts' ? <button onClick={() => setPage('todos')} > Todos </button>
-                : <button onClick={() => setPage('posts')} > Posts </button>} */}
 
-            {/* {page === 'posts' ? <Posts /> : <Todos />} */}
         </Router>
     )
 }

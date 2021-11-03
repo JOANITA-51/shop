@@ -1,6 +1,9 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
+import {useAuth} from '../contexts/Auth'
 
 const Home = ({onClick}) => {
+    const currentUser = useAuth()
     const invetoryItems =[
         {
             name: "Phone",
@@ -23,41 +26,58 @@ const Home = ({onClick}) => {
             price: 15000  
         }
     ]
-
+    if (currentUser)
+        return (<Redirect to = {{pathname:"/dashboard"}}/>)
+  
     return (
         <div>
-            <h1>ONLINE SHOPPING </h1>
+            <div className = "header">
+               <h1>ONLINE SHOPPING </h1>
+               <div>
+                   <button>Basket</button>
+               </div>
+            </div>
+           
 
-            <ul>
+            <ul className = "item-list">
                 {
                     invetoryItems.map((invetoryItem, index) =>{
                         return(
-                            <li key = {index.toString()}>
+                            <li key = {index.toString()} className= "item">
+                                
+                                <div>
                                 {invetoryItem.name}
+                                </div >
+                                 
                                 <div>
-                                    
+                                {invetoryItem.category}
                                 </div>
-                                 {invetoryItem.category}
+                                 
                                 <div>
-                                    
+                                {invetoryItem.price}
                                 </div>
-                                 {invetoryItem.price}
+
                                 <div>
-                                   
+                                    <button><span>Wishlist</span></button>
+                                    <button><span>Rate</span></button>
+                                    <button><span>Cart</span></button>
+                                    <button><span>Buy Now</span></button>
                                 </div>
+
+
                             </li>
                         )
                     })
                 }
             </ul> <br/>
-            <button className='btn' style = {{backgroundColor:'green'}} onClick={onClick}>
+            {/* <button className='btn' style = {{backgroundColor:'green'}} onClick={onClick}>
                 Add <br/>
                 +
             </button>
             <button className='btn' style = {{backgroundColor:'red'}} onClick={onClick}>
                 Remove<br/>
                 -
-            </button>
+            </button> */}
 
         </div>
 

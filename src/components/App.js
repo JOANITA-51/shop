@@ -1,11 +1,9 @@
-import Router from './routes/MyRouter'
+import MyRouter from './routes/MyRouter'
 import React from 'react'
-import Home from './views/Home'
-
 const App = () => {
     return (
         <div>
-           <Home/> 
+          <MyRouter/>
         </div>
     )
 }

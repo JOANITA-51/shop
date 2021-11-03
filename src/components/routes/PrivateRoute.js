@@ -1,25 +1,25 @@
-// import React from 'react'
-// import {useAuth} from '../contexts/Auth'
-// import{
-//     Route,
-//     Redirect
-// } from 'react-router-dom'
+import {useAuth} from '../contexts/Auth'
+import{
+    Route,
+    Redirect
+} from 'react-router-dom'
+import { useAuth } from '../contexts/Auth'
 
+const PrivateRoute = ({children, ...rest}) => {
+    const {currentUser} = useAuth()
+    return (
+        <Route
+         {...rest}
+            render =
+            {
+                        ({location})=>currentUser? (children): 
+                    (<Redirect to ={{pathname:"/not-logged-in", state: {from:location}} }/>)
 
+            
+            }
+        />
 
-// const PrivateRoute = ({children, ...rest}) => {
-//     const {currentUser} = useAuth()
+    )
+}
 
-//     return (
-//         <Route {...rest}
-//             render = {()=>{
-//                 currentUser? (children): (<Redirect to ="/not-authorized"/>)
-
-//             }
-//         }
-//         />
-
-//     )
-// }
-
-// export default PrivateRoute
+export default PrivateRoute
