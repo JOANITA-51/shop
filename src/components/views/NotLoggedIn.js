@@ -1,8 +1,10 @@
 import { useAuth } from '../contexts/Auth'
 import { useEffect, useState } from 'react'
 import {Link, Redirect, useHistory} from 'react-router-dom'
+import Loader from './uicomponents/Loader'
 
 const NotLoggedIn = () => {
+    const [isLoading, setLoading] = useState(true)
     const {setCurrentUser} = useAuth()
     const history = useHistory()
     const [isLogin, setLogin] = useState(false)

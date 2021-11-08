@@ -20,6 +20,7 @@ const Login = () => {
             <button onCllck= {()=>{
                 setCurrentUser (1)
                 (
+                  localStorage.setItem('loggedIn' , 1),
                   history.push('/dashboard')  
                 )
                 
