@@ -12,9 +12,13 @@ const NotLoggedIn = () => {
         if (loggedIn === 1)
             setCurrentUser(loggedIn)
             setLogin(loggedIn)
+            setLoading(false)
     }, [])
-     if (isLogin)
+     if (isLogin && !isLoading)
         return < Redirect to={{pathname: `${history.location.state.pathname}`}}/>
+     if(!isLogin && isLoading)   
+        return <Loader/>
+    
     return (
         <div>
             <h1>You are not Logged in</h1>

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import {Route, Redirect}from 'react-router-dom'
 import { useAuth } from '../contexts/Auth'
 const PublicRoute = ({children, ...rest}) => {
     const {setCurrentUser} = useAuth()
-    const [islogin, setLoggedIn] = useState (0)
+    const [islogin, setLoggedIn] = useState(0)
 
     useEffect(() => {
         const isLoggedIn = parseInt(localStorage.getItem('loggedIn'))

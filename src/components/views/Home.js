@@ -6,35 +6,46 @@ const Home = ({onClick}) => {
     const currentUser = useAuth()
     const invetoryItems =[
         {
+            id:12,
             name: "Phone",
             category: "Samsung",
             price: 50000
         },
         {
+            id:13,
             name: "Blue shirt",
             category: "All",
             price: 35000
         },
         {
+            id:14,
             name: "Black Shoes",
             category: "Men",
             price: 5000  
         },
         {
+            id:15,
             name: "red dress",
             category: "Women",
             price: 15000  
         }
     ]
+
+    // const addItemToCart = ItemID =>{
+    //     setItemsInCart([...itemsIncart, inventoryItems[ItemNumber]])
+    // }
     if (currentUser)
         return (<Redirect to = {{pathname:"/dashboard"}}/>)
   
     return (
         <div>
             <div className = "header">
-               <h1>ONLINE SHOPPING </h1>
+               <h1>
+                   <link to ></link>ONLINE SHOPPING </h1>
                <div>
-                   <button>Basket</button>
+                   <button>
+                       {/* {itemsIncart.length} */}
+                       Basket</button>
                </div>
             </div>
            
@@ -60,7 +71,7 @@ const Home = ({onClick}) => {
                                 <div>
                                     <button><span>Wishlist</span></button>
                                     <button><span>Rate</span></button>
-                                    <button><span>Cart</span></button>
+                                    <button onClick><span>Cart</span></button>
                                     <button><span>Buy Now</span></button>
                                 </div>
 

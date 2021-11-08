@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Cart = () => {
+const Loader = () => {
     return (
         <div>
-            
+           <p>Is loading...</p> 
         </div>
     )
 }
 
-export default Cart
+export default Loader

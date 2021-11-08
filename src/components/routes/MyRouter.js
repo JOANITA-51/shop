@@ -1,5 +1,5 @@
-import React from 'react'
 import PrivateRoute from './PrivateRoute'
+import NotLoggedIn from '../views/NotLoggedIn'
 import PublicRoute from './PublicRoute'
 import Login from '../views/Login'
 import Account from '../views/Account'
@@ -18,9 +18,22 @@ import {
 function MyRouter() {
     return (
         <Router>
+                <nav>
+                    <ul>
+                        <li>
+                        <Link to = "/">Shop</Link>
+                        <Link to = "/login">Login</Link>
+                        </li>
+                        
+                    </ul>
+                </nav>
             <Switch>
+
                 <Route path="/" exact>
                     <Home />
+                </Route>
+                <Route path = "/not-logged-in">
+                    <NotLoggedIn/>
                 </Route>
                 <Route path="/not-authorized">
                     <NotAuthorized />
