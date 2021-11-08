@@ -33,7 +33,7 @@ const Cart = () => {
                                         onChange = {(event)=>{
                                             const item = itemsInCart[index]
                                             item.qty = Number(event.target.value)
-                                            item['subtotal'] = Number(item.qty) * Number(item.price)
+                                            item['subTotal'] = Number(item.qty) * Number(item.price)
                                             itemsInCart[index] = item
                                             setItemsInCart([...itemsInCart])
                                             const subTotals = itemsInCart.map(itemsInCart => itemInCart.subTotal)
@@ -47,7 +47,7 @@ const Cart = () => {
                                     />
                                 </td>
                                 <td>{formatter.format (itemInCart.price)}</td>
-                                <td>{formatter.format (itemInCart.price)}</td>
+                                <td>{formatter.format (itemInCart.subTotal||itemInCart.price)}</td>
                             </tr>
                         
                         )}

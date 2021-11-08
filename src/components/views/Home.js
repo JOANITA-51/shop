@@ -43,7 +43,7 @@ const Home = () => {
     // }
     const addItemToCart = itemID =>{
         const filteredCartItems = itemsInCart.filter(itemInCart => itemInCart._id !== itemID)
-        let selectItem = inventoryItems.filter(theInventoryItem => theInventoryItem.id===itemID)
+        let selectItem = inventoryItems.filter(theInventoryItem => theInventoryItem._id===itemID)
         selectItem[0]['qty'] = 1
         setItemsInCart([...filteredCartItems, ...selectItem])
     }
@@ -59,11 +59,12 @@ const Home = () => {
                <h1>
                    <link to ></link>ONLINE SHOPPING </h1>
                <div>
-                   <Link to = "/cart">{itemsInCart?.length}</Link>
+                   <h3>
+                   <Link to = "/cart"> BASKET  <button>{itemsInCart?.length}</button> </Link>
+                   </h3>
+                   
 
-                   {/* <button>
-                       {/* {itemsIncart.length} 
-                       Basket</button> */}
+                   
                </div>
             </div>
            
