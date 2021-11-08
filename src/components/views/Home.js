@@ -11,27 +11,27 @@ const Home = () => {
         currency:'UGX',
     });
 
-    const invetoryItems =[
+    const inventoryItems =[
         {
-            _id:12,
+            _id:'we12',
             name: "Phone",
             category: "Samsung",
             price: 50000
         },
         {
-            _id:13,
+            _id:'we13',
             name: "Blue shirt",
             category: "All",
             price: 35000
         },
         {
-            _id:14,
+            _id:'we14',
             name: "Black Shoes",
             category: "Men",
             price: 5000  
         },
         {
-            _id:15,
+            _id:'we15',
             name: "red dress",
             category: "Women",
             price: 15000  
@@ -43,8 +43,8 @@ const Home = () => {
     // }
     const addItemToCart = itemID =>{
         const filteredCartItems = itemsInCart.filter(itemInCart => itemInCart._id !== itemID)
-        let selectItem= inventoryItems.filter(theInventoryItem => theInventoryItem.id=== itemID)
-        selectItemn[0]['qty'] = 1
+        let selectItem = inventoryItems.filter(theInventoryItem => theInventoryItem.id===itemID)
+        selectItem[0]['qty'] = 1
         setItemsInCart([...filteredCartItems, ...selectItem])
     }
 
@@ -70,20 +70,20 @@ const Home = () => {
 
             <ul className = "item-list">
                 {
-                    invetoryItems.map((invetoryItem, index) =>{
+                    inventoryItems.map((inventoryItem, index) =>{
                         return(
                             <li key = {index.toString()} className= "item">
                                 
                                 <div>
-                                {invetoryItem.name}
+                                {inventoryItem.name}
                                 </div >
                                  
                                 <div>
-                                {invetoryItem.category}
+                                {inventoryItem.category}
                                 </div>
                                  
                                 <div>
-                                {invetoryItem.price}
+                                {inventoryItem.price}
                                 </div>
 
                                 <div className= "cta" >
