@@ -1,36 +1,70 @@
 import React from 'react'
 import { useCart } from '../contexts/Cart';
 import {Link} from 'react-router-dom'
+import { useEffect, useState } from 'react';
 
 const Cart = () => {
-    const {itemsInCart} =useCart();
+    let formatter = new Intl.NumberFormat('en-US',{
+        style: 'currency',
+        currency:'UGX',
+    });
+    const {itemsInCart, setItemsInCart, total, setTotal} =useCart();
+    useEffect(()=>{
+        setTotal(itemsInCart.reduce((currentItem, previousItem)=>currentItem.subTotal + previousItem.subTotal,0))
+    }, [])
     if(itemsInCart?.length >0)
         return (
             <div>
-                {itemsInCart.map(itemsInCart => <div key = {itemInCart._id}>{itemInCart.name}</div>)}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {itemsInCart.map((itemInCart,index)=>
+                            <tr className= "cart-item" key = {itemInCart._id}>
+                                <td>{itemInCart.name}</td>
+                                <td>
+                                    <input type = "number" min = "1" defaultValue={itemInCart.qty} placeholder = {itemInCart.qty}
+                                        onChange = {(event)=>{
+                                            const item = itemsInCart[index]
+                                            item.qty = Number(event.target.value)
+                                            item['subtotal'] = Number(item.qty) * Number(item.price)
+                                            itemsInCart[index] = item
+                                            setItemsInCart([...itemsInCart])
+                                            const subTotals = itemsInCart.map(itemsInCart => itemInCart.subTotal)
+                                            const reducer = (currentValue, previousValue) => {
+                                                return currentValue + previousValue
+                                            }
+                                            setTotal(subTotals.reduce(reducer))
+                                        }
+                                    }
+                                    
+                                    />
+                                </td>
+                                <td>{formatter.format (itemInCart.price)}</td>
+                                <td>{formatter.format (itemInCart.price)}</td>
+                            </tr>
+                        
+                        )}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total {formatter.format(total)}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+ 
             </div>
         )
-    const subTotal = (itemID) =>{
-        const item = itemsInCart.filter(itemInCart => itemInCart._id ===itemID)
-        return Number (item.qty) * Number(item.price)
-    }
     return (
         <div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Unit Cost</th>
-                        <th>Sub Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {itemsInCart.map(itemInCart => 
-                    <div key= {itemsInCart._id}>{itemInCart.name}</div>)}
-                </tbody>
-            </table>
+            <h1>Your Basket is empty</h1>
+            <p><Link to ="/">Shop Now</Link></p>   
         </div>
     )
 }
