@@ -11,14 +11,18 @@ const NotLoggedIn = () => {
 
     useEffect(() => {
         const loggedIn = Number (localStorage.getItem('loggedIn'))
-        if (loggedIn === 1)
+        if (loggedIn === 1){
             setCurrentUser(loggedIn)
             setLogin(loggedIn)
             setLoading(false)
+        } else {
+            setLoading(false)
+        }
+
     }, [])
-     if (isLogin && !isLoading)
+     if (isLogin)
         return < Redirect to={{pathname: `${history.location.state.pathname}`}}/>
-     if(!isLogin && isLoading)   
+     if( isLoading)   
         return <Loader/>
     
     return (
