@@ -4,10 +4,15 @@ import './components/css/styles.css'
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from './components/contexts/Auth'
+import CartProvider from './components/contexts/Cart'
 ReactDOM.render(
   <React.StrictMode>
+
       <AuthProvider>
-    <App />
+        <CartProvider>
+        <App />
+        </CartProvider>
+  
   </AuthProvider>
 
   </React.StrictMode>,
