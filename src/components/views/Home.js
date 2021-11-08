@@ -1,30 +1,37 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { useCart } from '../contexts/Cart'
 import {useAuth} from '../contexts/Auth'
+import {Link} from 'react-router-dom'
 
-const Home = ({onClick}) => {
-    const currentUser = useAuth()
+const Home = () => {
+    const {currentUser} = useAuth()
+    const {itemsInCart, setItemsInCart} = useCart()
+
+    let formatter = new Intl.NumberFormat ('en-US', {
+        style : 'currency',
+        currency:'UGX',
+    });
+
     const invetoryItems =[
         {
-            id:12,
+            _id:12,
             name: "Phone",
             category: "Samsung",
             price: 50000
         },
         {
-            id:13,
+            _id:13,
             name: "Blue shirt",
             category: "All",
             price: 35000
         },
         {
-            id:14,
+            _id:14,
             name: "Black Shoes",
             category: "Men",
             price: 5000  
         },
         {
-            id:15,
+            _id:15,
             name: "red dress",
             category: "Women",
             price: 15000  
@@ -34,8 +41,17 @@ const Home = ({onClick}) => {
     // const addItemToCart = ItemID =>{
     //     setItemsInCart([...itemsIncart, inventoryItems[ItemNumber]])
     // }
-    if (currentUser)
-        return (<Redirect to = {{pathname:"/dashboard"}}/>)
+    const addItemToCart = itemID =>{
+        const filteredCartItems = itemsInCart.filter(itemInCart => itemInCart._id !== itemID)
+        let selectItem= inventoryItems.filter(theInventoryItem => theInventoryItem.id=== itemID)
+        selectItemn[0]['qty'] = 1
+        setItemsInCart([...filteredCartItems, ...selectItem])
+    }
+
+    const isItemInCart = (itemID) => {
+        const filteredCartItems = itemsInCart.filter(itemInCart => itemInCart._id === itemID)
+        return (filteredCartItems?.length>0) ? true: false
+    }
   
     return (
         <div>
@@ -43,9 +59,11 @@ const Home = ({onClick}) => {
                <h1>
                    <link to ></link>ONLINE SHOPPING </h1>
                <div>
-                   <button>
-                       {/* {itemsIncart.length} */}
-                       Basket</button>
+                   <Link to = "/cart">{itemsInCart?.length}</Link>
+
+                   {/* <button>
+                       {/* {itemsIncart.length} 
+                       Basket</button> */}
                </div>
             </div>
            
@@ -68,10 +86,11 @@ const Home = ({onClick}) => {
                                 {invetoryItem.price}
                                 </div>
 
-                                <div>
+                                <div className= "cta" >
                                     <button><span>Wishlist</span></button>
                                     <button><span>Rate</span></button>
-                                    <button onClick><span>Cart</span></button>
+                                    {isItemInCart (inventoryItem._id)? <Link to = "/cart">View Cart</Link>:
+                                     <button onClick = {()=>addItemToCart(inventoryItem._id)} > <span>Cart</span></button>}
                                     <button><span>Buy Now</span></button>
                                 </div>
 
