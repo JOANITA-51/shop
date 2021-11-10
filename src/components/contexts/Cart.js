@@ -19,7 +19,4 @@ export default function CartProvider ({children}) {
         </CartContext.Provider>
      )
 
- }
-
-
-
+}

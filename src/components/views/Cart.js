@@ -3,14 +3,29 @@ import { useCart } from '../contexts/Cart';
 import {Link} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
+
 const Cart = () => {
+    const {itemsInCart, setItemsInCart, total, setTotal} = useCart(); 
+const returnTotal = (items)=>{
+    let sum =0 ;
+    items.forEach(item => {
+        sum += item.subTotal
+    });
+    return sum
+   }
+  
     let formatter = new Intl.NumberFormat('en-US',{
         style: 'currency',
         currency:'UGX',
     });
-    const {itemsInCart, setItemsInCart, total, setTotal} =useCart();
+    const removeItemsInCart = (itemId)=>{
+        let newCart = itemsInCart.filter((item)=>item._id !==itemId )
+        return newCart;
+    }
+
+
     useEffect(()=>{
-        setTotal(itemsInCart.reduce((currentItem, previousItem)=>currentItem.subTotal + previousItem.subTotal,0))
+        setTotal(returnTotal(itemsInCart))
     }, [])
     if(itemsInCart?.length >0)
         return (
@@ -27,20 +42,31 @@ const Cart = () => {
                     <tbody>
                         {itemsInCart.map((itemInCart,index)=>
                             <tr className= "cart-item" key = {itemInCart._id}>
-                                <td>{itemInCart.name}</td>
+                                <td>{itemInCart.name} <br/>
+                                <button onClick ={() =>{
+                                    let newItemsInCart = removeItemsInCart(itemInCart._id)
+                                    setItemsInCart([... newItemsInCart])
+                                    setTotal(returnTotal(newItemsInCart))
+                                }}> Remove from Cart
+
+                                </button>
+                                </td> 
                                 <td>
                                     <input type = "number" min = "1" defaultValue={itemInCart.qty} placeholder = {itemInCart.qty}
                                         onChange = {(event)=>{
-                                            const item = itemsInCart[index]
-                                            item.qty = Number(event.target.value)
-                                            item['subTotal'] = Number(item.qty) * Number(item.price)
-                                            itemsInCart[index] = item
+                                            //const item = itemsInCart[index]
+                                            // item.qty = Number(event.target.value)
+                                            // item['subTotal'] = Number(item.qty) * Number(item.price)
+                                            // itemsInCart[index] = item
+                                            let {value : quantity } = event.target
+                                            itemInCart.qty = quantity > 0 ? quantity:1
+                                            itemInCart.subTotal = itemInCart.qty * itemInCart.price
                                             setItemsInCart([...itemsInCart])
-                                            const subTotals = itemsInCart.map(itemsInCart => itemInCart.subTotal)
-                                            const reducer = (currentValue, previousValue) => {
-                                                return currentValue + previousValue
-                                            }
-                                            setTotal(subTotals.reduce(reducer))
+                                            // const subTotals = itemsInCart.map(itemsInCart => itemInCart.subTotal)
+                                            // const reducer = (currentValue, previousValue) => {
+                                            //     return currentValue + previousValue
+                                            // }
+                                            setTotal(returnTotal(itemsInCart))
                                         }
                                     }
                                     
