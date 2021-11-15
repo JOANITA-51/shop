@@ -19,12 +19,28 @@ const Checkout = () => {
     const handlePayment = () =>{
         
     }
-    // const vouchers = {
-    //     xxx:{rate:10, status:'active', amount:10000},
-    //     yyy:{rate:15, status:'active', amount:10000},
-    //     www:{rate:20, status:'active', amount:null},
-    //     zzz:{rate:30, status:'active', amount:10000}
-    // }
+     const vouchers = {
+         xxx:{rate:10, status:'active', amount:10000},
+         yyy:{rate:15, status:'expired', amount:10000},
+         www:{rate:20, status:'active', amount:null},
+         zzz:{rate:25, status:'active', amount:10000},
+         uuu:{rate:null, status:'active', amount:null},
+         vvv:{rate:null, status:'active', amount:1000}
+     }
+
+     const getVoucherInfo = (appliedVoucher) => {
+         const theVoucher = voucher[appliedVoucher]
+         if (theVoucher){
+             if(theVoucher.status !== 'expired'){
+                 if(!theVoucher.rate && !theVoucher.amount){
+                     return {msg: 'invalid Voucher'}
+                 }
+                 return theVoucher?.amount >0?{amount: theVoucher.amount}:{rate: theVourcher.rate}
+             }
+             return {msg: 'Expired Voucher'}
+         }
+         return {msg:'Invalid Voucher'}
+     }
 
     return (
         
@@ -100,7 +116,16 @@ const Checkout = () => {
                     <legend>Payment</legend>
                     <div>
                         <label>Voucher code</label> 
-                        <input type = 'text' placeholder='voucher code'/>
+                        <input type = 'text' placeholder='voucher code' onBlur={(event)=>{
+                            const voucherInfo = getVoucherInfo(event.target.value)
+                            if(voucherInfo?.msg){
+                                event.target.value = voucherInfo.msg;
+                            } else {
+                                voucherInfo.amount?setDiscount(voucherInfo.amount) : setDiscount((voucherInfo.rate / 100) * total)
+                            }
+                        }
+                            
+                        }/>
                     </div>
                     <label>MoMo/mobile Money<input type = 'radio' value ='momo' ref ='momo' /></label>
                     <label>Airtel<input type = 'radio' value ='airtel' ref ='airtel' /></label>
