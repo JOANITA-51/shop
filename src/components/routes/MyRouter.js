@@ -23,7 +23,7 @@ function MyRouter() {
     const {itemsInCart} = useCart()
     return (
         <Router>
-            <header>
+            <header className = 'header'>
                 <h1>
                     <Link to = "/">DevShop</Link>
                 </h1>
