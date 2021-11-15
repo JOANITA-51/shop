@@ -1,4 +1,4 @@
-const districts_elements = (props) => {
+const Districts = (props) => {
     return (
         <div>
             <select {...props}>
@@ -145,4 +145,4 @@ const districts_elements = (props) => {
     )
 }
 
-export default districts_elements
+export default Districts
