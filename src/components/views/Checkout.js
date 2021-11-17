@@ -14,7 +14,7 @@ const Checkout = () => {
     const [tax, setTax] = useState(0)
     const [discount, setDiscount] = useState(0)
     const [voucher, setVoucher] = useState('')
-    const vouchers = ['10% off', '20% off', '30% off']
+    // const vouchers = ['10% off', '20% off', '30% off']
     
     const handlePayment = () =>{
         
@@ -29,13 +29,13 @@ const Checkout = () => {
      }
 
      const getVoucherInfo = (appliedVoucher) => {
-         const theVoucher = voucher[appliedVoucher]
+         const theVoucher = vouchers[appliedVoucher]
          if (theVoucher){
-             if(theVoucher.status !== 'expired'){
-                 if(!theVoucher.rate && !theVoucher.amount){
+             if(theVoucher['status'] !== 'expired'){
+                 if(!theVoucher['rate'] && !theVoucher['amount']){
                      return {msg: 'invalid Voucher'}
                  }
-                 return theVoucher?.amount >0?{amount: theVoucher.amount}:{rate: theVourcher.rate}
+                 return theVoucher['amount'] >0?{amount: theVoucher['amount']}:{rate: theVoucher['rate']}
              }
              return {msg: 'Expired Voucher'}
          }
@@ -127,8 +127,8 @@ const Checkout = () => {
                             
                         }/>
                     </div>
-                    <label>MoMo/mobile Money<input type = 'radio' value ='momo' ref ='momo' /></label>
-                    <label>Airtel<input type = 'radio' value ='airtel' ref ='airtel' /></label>
+                    <label>MoMo/mobile Money<input type = 'radio' value ='momo'  /></label>
+                    <label>Airtel<input type = 'radio' value ='airtel'  /></label>
                 </fieldset>
                 <button type='submit' onClick={handlePayment}>Pay Now</button>
             </form>

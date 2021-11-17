@@ -2,6 +2,7 @@ import React from 'react'
 import { useCart } from '../contexts/Cart';
 import {Link} from 'react-router-dom'
 import { useEffect, useState } from 'react';
+import Checkout from '../views/Checkout';
 
 
 const Cart = () => {
@@ -81,6 +82,10 @@ const returnTotal = (items)=>{
                     <tfoot>
                         <tr>
                             <th>Total {formatter.format(total)}</th>
+                            <td>checkout</td>
+                            <li>
+                        <Link to = "/checkout">Checkout</Link>
+                        </li>
                         </tr>
                     </tfoot>
                 </table>

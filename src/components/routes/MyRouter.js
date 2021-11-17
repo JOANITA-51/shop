@@ -48,6 +48,7 @@ function MyRouter() {
                         <Link to = "/help">Help</Link>
                         </li>
 
+
                         <li>
                             {currentUser? <Link to = "/logout">Logout</Link> : <Link to ="/login">Login</Link>}
                         </li>
