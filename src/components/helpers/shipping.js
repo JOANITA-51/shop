@@ -1,4 +1,4 @@
-const Zones = {
+export const Zones = {
     'Zone A': {
         'transport_mode': ['air', 'sea'],
         'shipping_methods': {
@@ -40,35 +40,35 @@ const Zones = {
     },
 }
 
-const  regions = [
+export const  regions = [
      {
         'region':'asia',
         'zone': 'Zone A',
-        countries: ['china', 'japan', 'singapore'],
+        countries: ['China', 'Japan', 'Singapore'],
     },
      {
         'region':'Europe',
         'zone': 'Zone A',
-        countries: ['uk', 'france', 'spain'],
+        countries: ['Uk', 'France', 'Spain'],
     },
     {
-        'region':'north_america',
+        'region':'North America',
         'zone': 'Zone A',
-        countries: ['canada','usa'],
+        countries: ['Canada','Usa'],
     },
     {
         'region':'africa',
         'zone': 'Zone B',
-        countries: ['uganda', 'south_sudan','rwanda'],
+        countries: ['Uganda', 'South Sudan','Rwanda'],
     },
     {
         'region':'middle_east',
         'zone': 'Zone B',
-        countries: ['united_arab_emirates']
+        countries: ['United Arab Emirates']
     }
 ]
 
-const shipping_methods = {
+export const shipping_methods = {
     'International': {
 
     },
