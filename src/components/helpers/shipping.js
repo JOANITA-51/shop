@@ -103,7 +103,7 @@ export const  regions = [
     {
         'region':'North America',
         'zone': 'Zone A',
-        countries: ['Canada','Usa'],
+        countries: ['Canada','United States'],
     },
     {
         'region':'africa',
@@ -145,6 +145,7 @@ export const  regions = [
 export const getCountryZone=(country) => {
     const [region_which_contain_country] = regions.filter(region => region.countries.includes(country))
     let zone = region_which_contain_country ? region_which_contain_country.zone : null
-    return Zones[zone]
+   // return Zones[zone]
+   return zone ? Zones[zone] : {'error': `Sorry, we don't ship in that location.`}
 }
 

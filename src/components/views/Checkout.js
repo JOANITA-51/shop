@@ -81,6 +81,7 @@ const Checkout = () => {
                     <Countries onChange = {(event) =>{ 
                         setCountry(event.target.value)
                         setZone(getCountryZone(event.target.value))
+                        setShipping(0)
                         console.log(zone)
                         }} required id = 'country'/>
                 </div>
@@ -98,10 +99,14 @@ const Checkout = () => {
                     </>
                     :
                     <>
+                       {country == 'United States' ? <div>
+                            <label>State <span class="required-label">*</span></label>
+                            <Us_states id="us_state" />
+                        </div> :
                         <div>
                             <label>State <span className = 'required-label'>*</span></label>
-                            <Us_states id = 'us_state'/>
-                        </div>
+                            <input type="text" required placeholder="State"/>
+                        </div>}
                         <div>
                             <label>Zip code / Postal code</label>
                             <input type = 'text' placeholder = 'Postal Code'/>
@@ -109,10 +114,36 @@ const Checkout = () => {
                     </>
                 }
                 </fieldset>
-                {zone &&
+                {zone?.error
+                    ?
+                    <div>{zone.error}</div>
+                    :
                   <fieldset>
                     <legend>Shipping Methods</legend>
-                    {zone.transport_mode[1]}
+                    {zone && zone.map(theCompany =>
+                            <div>
+                                <h1>{theCompany.company}</h1>
+                            {
+                                theCompany.classes.map((companyClass,index) =>
+                                    <div>
+                                        <input
+                                            onChange={(event) => {
+                                                //setShipping(0)
+                                                setShipping(Number(event.target.getAttribute('data-cost')))
+
+                                            }}
+                                            id={`${theCompany.company}_${companyClass.label}`.toLocaleLowerCase().replace(' ', '_')}
+                                            type="radio" name="shipping_class" value={`${theCompany.company}_${companyClass.label}`} data-cost={companyClass.cost} />
+                                        <label htmlFor={
+                                            `${theCompany.company}_${companyClass.label}`.toLocaleLowerCase().replace(' ','_')
+                                        }>{`${companyClass.label} ${companyClass.cost}`}
+                                        </label>
+                                    </div>
+                            ) }
+                            </div>
+                    )
+                    
+                    }
                   </fieldset>
                 
                 }
@@ -123,7 +154,7 @@ const Checkout = () => {
                     <p>Shipping {shipping}</p>
                     <p>Discount {discount}</p>
                     <p>Tax {tax}</p>
-                    <p>Total {currencyFormatter((total + shipping + tax - discount), 'UGX', 'en-US')}</p>
+                    <p>Total {currencyFormatter((total + shipping + tax - discount))}</p>
                 </fieldset>
 
                 <fieldset>
