@@ -4,6 +4,7 @@ import Countries from '../helpers/Countries_elements'
 import Districts from '../helpers/Districts_elements'
 import Us_states from '../helpers/Us_states_elements'
 import {currencyFormatter, ugandaShillings} from '../helpers/Currency_format'
+import {getCountryZone } from '../helpers/shipping'
 
 
 const Checkout = () => {
@@ -14,6 +15,7 @@ const Checkout = () => {
     const [tax, setTax] = useState(0)
     const [discount, setDiscount] = useState(0)
     const [voucher, setVoucher] = useState('')
+    const [zone, setZone] = useState(null)
     // const vouchers = ['10% off', '20% off', '30% off']
     
     const handlePayment = () =>{
@@ -76,7 +78,11 @@ const Checkout = () => {
                 </div>
                 <div>
                     <label>Country<span className ='required-label'>*</span></label>
-                    <Countries onChange = {(event) => setCountry(event.target.value)} required id = 'country'/>
+                    <Countries onChange = {(event) =>{ 
+                        setCountry(event.target.value)
+                        setZone(getCountryZone(event.target.value))
+                        console.log(zone)
+                        }} required id = 'country'/>
                 </div>
 
                 {country == 'Uganda'?
@@ -103,6 +109,14 @@ const Checkout = () => {
                     </>
                 }
                 </fieldset>
+                {zone &&
+                  <fieldset>
+                    <legend>Shipping Methods</legend>
+                    {zone.transport_mode[1]}
+                  </fieldset>
+                
+                }
+
                 <fieldset>
                     <legend>Cart Details</legend>
                     <p>Subtotal {ugandaShillings.format(total)}</p>

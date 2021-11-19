@@ -1,6 +1,54 @@
 export const Zones = {
+    'Zone A': [
+        {
+            company: 'DHL',
+            mode: 'Flight',
+            classes: [
+                {
+                    label: 'Expedited Internationl',
+                    duration_in_days: 5,
+                    currency: 'USD',
+                    cost: 120
+                },
+                {
+                    label: 'First class Internationl',
+                    duration_in_days: 15,
+                    currency: 'USD',
+                    cost: 90
+                }
+            ]
+        },
+        {
+            company: 'EMS',
+            mode: 'Water',
+            classes: [
+                {
+                    label: 'Standard International',
+                    duration_in_days: 45,
+                    currency: 'USD',
+                    cost: 40
+                }
+            ]
+        }
+    ],
+    'Zone B': [
+        {
+            company: 'Posta Uganda',
+            mode: 'Road',
+            classes: [
+                {
+                    label: 'Same day delivery',
+                    duration_in_days: 1,
+                    currency: 'UGX',
+                    cost: 45000
+                }
+            ]
+        }
+    ]
+}
+/*export const Zones = {
     'Zone A': {
-        'transport_mode': ['air', 'sea'],
+        transport_mode: ['air', 'sea'],
         'shipping_methods': {
             'air': {
                 'category':'International',
@@ -38,7 +86,8 @@ export const Zones = {
         'transport_mode': ['air', 'road'],
 
     },
-}
+
+} */
 
 export const  regions = [
      {
@@ -49,7 +98,7 @@ export const  regions = [
      {
         'region':'Europe',
         'zone': 'Zone A',
-        countries: ['Uk', 'France', 'Spain'],
+        countries: ['United Kingdom', 'France', 'Spain'],
     },
     {
         'region':'North America',
@@ -68,7 +117,7 @@ export const  regions = [
     }
 ]
 
-export const shipping_methods = {
+/*export const shipping_methods = {
     'International': {
 
     },
@@ -81,13 +130,21 @@ export const shipping_methods = {
     'Free': {
 
     }
-}
-let country = 'uganda'
-const [region_which_contain_country] = regions.filter(region => region.countries.includes(country))
-let {zone} = region_which_contain_country
-console.log(Zones[zone])
+}*/
+// let country = 'uganda'
+// const [region_which_contain_country] = regions.filter(region => region.countries.includes(country))
+// let {zone} = region_which_contain_country
+// console.log(Zones[zone])
+
+
 // console.log(regions.filter(region => region.countries.includes(country)).map(region => region.zone))
 // for(let region of regions){
 //     console.log(region)
 // }
+
+export const getCountryZone=(country) => {
+    const [region_which_contain_country] = regions.filter(region => region.countries.includes(country))
+    let zone = region_which_contain_country ? region_which_contain_country.zone : null
+    return Zones[zone]
+}
 
