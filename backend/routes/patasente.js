@@ -6,8 +6,18 @@ const URL = 'https://patasente.me/phantom-api/send-transaction-token/0634vhfoP/e
 router.post('/', async function(req, res, next){
     try{
         const results = await axios.post(URL, req.body)
-        console.log (results.data)
-        res.json({'msg' : 'Api reached!'})
+        //console.log (results.data)
+        if(results.data.indexOf('four')){
+            res.json({
+                'result':'success',
+                //'msg' : 'Api reached!'
+            })
+        } else {
+            res.json({
+                'result':'fail', 
+            })
+        }
+
 
     } catch(error){
         console.log(error)
